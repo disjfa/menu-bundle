@@ -7,3 +7,12 @@ services:
     Disjfa\MenuBundle\:
         resource: './../../*'
         exclude: './../../{Entity,Migrations,Tests}'
+
+    Disjfa\MenuBundle\Menu\AdminMenuBuilder:
+        tags:
+        - { name: 'knp_menu.menu_builder', method: 'build', alias: 'admin' }
+
+    Disjfa\MenuBundle\Menu\SiteMenuBuilder:
+        tags:
+        - { name: 'knp_menu.menu_builder', method: 'build', alias: 'site' }
+
