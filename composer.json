@@ -1,0 +1,24 @@
+{
+    "name": "disjfa/menu-bundle",
+    "description": "Menu bundle for symfony, can also be use in glynn-admin-symfony",
+    "keywords": [
+        "menu"
+    ],
+    "type": "symfony-bundle",
+    "require": {
+        "symfony/orm-pack": "^1.0",
+        "sensio/framework-extra-bundle": "^5.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "disjfa",
+            "email": "disjfa@disjfa.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Disjfa\\MenuBundle\\": ""
+        }
+    }
+}
