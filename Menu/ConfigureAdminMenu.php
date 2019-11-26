@@ -6,13 +6,8 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
-/**
- * @deprecated use ConfigureAdminMenu or ConfigureSiteMenu instead
- */
-class ConfigureMenuEvent extends Event
+class ConfigureAdminMenu extends Event
 {
-    const ADMIN = 'admin.menu_configure';
-    const SITE = 'site.menu_configure';
     /**
      * @var FactoryInterface
      */

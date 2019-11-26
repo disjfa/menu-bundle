@@ -8,6 +8,7 @@ use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SiteMenuBuilder
 {
@@ -25,19 +26,20 @@ class SiteMenuBuilder
      * @var MatcherInterface
      */
     private $matcher;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
     /**
      * MainBuilder constructor.
-     *
-     * @param ContainerInterface $container
-     * @param FactoryInterface   $factory
-     * @param MatcherInterface   $matcher
      */
-    public function __construct(ContainerInterface $container, FactoryInterface $factory, MatcherInterface $matcher)
+    public function __construct(ContainerInterface $container, FactoryInterface $factory, MatcherInterface $matcher, EventDispatcherInterface $eventDispatcher)
     {
         $this->container = $container;
         $this->factory = $factory;
         $this->matcher = $matcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -51,10 +53,8 @@ class SiteMenuBuilder
             ],
         ]);
 
-        $this->container->get('event_dispatcher')->dispatch(
-            ConfigureMenuEvent::SITE,
-            new ConfigureMenuEvent($this->factory, $menu)
-        );
+        $this->eventDispatcher->dispatch(new ConfigureSiteMenu($this->factory, $menu));
+        $this->eventDispatcher->dispatch(new ConfigureMenuEvent($this->factory, $menu), ConfigureMenuEvent::SITE);
 
         $this->setupMenuData($menu->getChildren());
 

@@ -8,6 +8,7 @@ use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AdminMenuBuilder
 {
@@ -25,19 +26,20 @@ class AdminMenuBuilder
      * @var MatcherInterface
      */
     private $matcher;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
     /**
      * MainBuilder constructor.
-     *
-     * @param ContainerInterface $container
-     * @param FactoryInterface   $factory
-     * @param MatcherInterface   $matcher
      */
-    public function __construct(ContainerInterface $container, FactoryInterface $factory, MatcherInterface $matcher)
+    public function __construct(ContainerInterface $container, FactoryInterface $factory, MatcherInterface $matcher, EventDispatcherInterface $eventDispatcher)
     {
         $this->container = $container;
         $this->factory = $factory;
         $this->matcher = $matcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -51,10 +53,8 @@ class AdminMenuBuilder
             ],
         ]);
 
-        $this->container->get('event_dispatcher')->dispatch(
-            ConfigureMenuEvent::ADMIN,
-            new ConfigureMenuEvent($this->factory, $menu)
-        );
+        $this->eventDispatcher->dispatch(new ConfigureAdminMenu($this->factory, $menu));
+        $this->eventDispatcher->dispatch(new ConfigureMenuEvent($this->factory, $menu), ConfigureMenuEvent::ADMIN);
 
         $this->setupMenuData($menu->getChildren());
 

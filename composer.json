@@ -2,11 +2,13 @@
     "name": "disjfa/menu-bundle",
     "description": "Menu bundle for symfony, can also be use in glynn-admin-symfony",
     "keywords": [
-        "menu"
+        "menu",
+        "symfony"
     ],
     "type": "symfony-bundle",
     "require": {
-        "knplabs/knp-menu-bundle": "^2.2"
+        "knplabs/knp-menu-bundle": "^2",
+        "symfony/event-dispatcher": "^4|^5"
     },
     "license": "MIT",
     "authors": [
