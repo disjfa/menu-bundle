@@ -13,11 +13,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class AdminMenuBuilder
 {
     /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
      * @var MenuFactory
      */
     private $factory;
@@ -34,9 +29,8 @@ class AdminMenuBuilder
     /**
      * MainBuilder constructor.
      */
-    public function __construct(ContainerInterface $container, FactoryInterface $factory, MatcherInterface $matcher, EventDispatcherInterface $eventDispatcher)
+    public function __construct(FactoryInterface $factory, MatcherInterface $matcher, EventDispatcherInterface $eventDispatcher)
     {
-        $this->container = $container;
         $this->factory = $factory;
         $this->matcher = $matcher;
         $this->eventDispatcher = $eventDispatcher;
