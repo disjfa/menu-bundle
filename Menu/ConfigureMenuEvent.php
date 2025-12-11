@@ -11,21 +11,11 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ConfigureMenuEvent extends Event
 {
-    const ADMIN = 'admin.menu_configure';
-    const SITE = 'site.menu_configure';
-    /**
-     * @var FactoryInterface
-     */
-    private $factory;
-    /**
-     * @var ItemInterface
-     */
-    private $menu;
+    public const ADMIN = 'admin.menu_configure';
+    public const SITE = 'site.menu_configure';
 
-    public function __construct(FactoryInterface $factory, ItemInterface $menu)
+    public function __construct(private readonly FactoryInterface $factory, private readonly ItemInterface $menu)
     {
-        $this->factory = $factory;
-        $this->menu = $menu;
     }
 
     /**

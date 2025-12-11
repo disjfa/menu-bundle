@@ -5,35 +5,16 @@ namespace Disjfa\MenuBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\MatcherInterface;
-use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SiteMenuBuilder
 {
     /**
-     * @var MenuFactory
-     */
-    private $factory;
-
-    /**
-     * @var MatcherInterface
-     */
-    private $matcher;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
      * MainBuilder constructor.
      */
-    public function __construct(FactoryInterface $factory, MatcherInterface $matcher, EventDispatcherInterface $eventDispatcher)
+    public function __construct(private readonly FactoryInterface $factory, private readonly MatcherInterface $matcher, private readonly EventDispatcherInterface $eventDispatcher)
     {
-        $this->factory = $factory;
-        $this->matcher = $matcher;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -71,7 +52,7 @@ class SiteMenuBuilder
                 $child->setAttribute('class', 'nav-item dropdown');
                 $child->setLinkAttribute('class', 'nav-link dropdown-toggle ');
 
-                $child->setLinkAttribute('data-toggle', 'dropdown');
+                $child->setLinkAttribute('data-bs-toggle', 'dropdown');
                 $child->setChildrenAttribute('class', 'dropdown-menu');
 
                 $child->setChildrenAttribute('id', $itemId);
