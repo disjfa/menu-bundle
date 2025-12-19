@@ -24,7 +24,7 @@ class AdminMenuBuilder
     {
         $menu = $this->factory->createItem('root', [
             'childrenAttributes' => [
-                'class' => 'sidebar-menu',
+                'class' => 'nav nav-underline flex-column',
             ],
         ]);
 
@@ -52,21 +52,21 @@ class AdminMenuBuilder
                 $itemId = sprintf('menu-%d-%d', $child->getLevel(), $childIndex + 1);
 
                 $child->setUri('#'.$itemId);
-                $child->setAttribute('class', 'sidebar-sub');
+                $child->setAttribute('class', 'nav-item');
 
-                $child->setLinkAttribute('data-toggle', 'collapse');
                 if ($this->matcher->isAncestor($child)) {
-                    $child->setChildrenAttribute('class', 'sidebar-sub collapse show');
-                    $child->setLinkAttribute('class', 'sidebar-link');
+                    $child->setChildrenAttribute('class', 'nav nav-underline flex-column ps-3 border-start border-primary');
+                    $child->setLinkAttribute('class', 'nav-link');
                 } else {
-                    $child->setLinkAttribute('class', 'sidebar-link collapsed');
-                    $child->setChildrenAttribute('class', 'sidebar-sub collapse');
+                    $child->setLinkAttribute('class', 'nav-link');
+                    $child->setChildrenAttribute('class', 'nav nav-underline flex-column ps-3 border-start border-primary');
                 }
                 $child->setChildrenAttribute('id', $itemId);
 
                 $this->setupMenuData($child->getChildren());
             } else {
-                $child->setLinkAttribute('class', 'sidebar-link');
+                $child->setAttribute('class', 'nav-item');
+                $child->setLinkAttribute('class', 'nav-link');
             }
         }
 
